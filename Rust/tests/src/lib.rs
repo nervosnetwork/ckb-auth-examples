@@ -63,11 +63,12 @@ impl Loader {
     fn load_binary(&self, name: &str) -> Bytes {
         let mut path = self.0.clone();
         path.push(name);
+        // println!("load bin: {:?}", path);
         fs::read(path).expect("binary").into()
     }
 
     pub fn load_demo(&self) -> Bytes {
-        self.load_binary("auth-rust-example")
+        self.load_binary("auth_rust_example")
     }
     pub fn load_auth(&self) -> Bytes {
         self.load_binary("../auth")

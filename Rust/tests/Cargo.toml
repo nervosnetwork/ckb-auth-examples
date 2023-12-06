@@ -10,5 +10,5 @@ include = ["build.rs"]
 ckb-testtool = "0.10"
 
 [dev-dependencies]
-ckb-auth-rs = { path = "../../ckb-auth/ckb-auth-rs", features = ["ckb2023"] }
+ckb-auth-rs = { path = "../../deps/ckb-auth/ckb-auth-rs", features = ["ckb2023"] }
 rand = "0.6.5"

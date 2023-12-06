@@ -5,7 +5,7 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=../ckb-auth");
 
-    let ckb_auth_dir = PathBuf::from("../ckb-auth");
+    let ckb_auth_dir = PathBuf::from("../../deps/ckb-auth");
 
     let make_result = Command::new("make")
         .arg("all-via-docker")
