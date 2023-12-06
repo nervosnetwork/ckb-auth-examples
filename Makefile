@@ -15,10 +15,9 @@ CI_C_GNU:
 CI_C_LLVM:
 	cd C && make -f Makefile.clang test
 
-# The rust example needs to be compiled using cpasule and cross. Both of these can be installed using ckb-auth/tests/Makefile
 install_tools:
-	cd deps/ckb-auth/tests/ && make install-capsule
-	cd deps/ckb-auth/tests/ && make install-cross
+	cargo install ckb-capsule --version "0.10.2"
+	cargo install cross --git https://github.com/cross-rs/cross
 
 clean:
 	cd C && make clean
