@@ -1,0 +1,14 @@
+[package]
+name = "tests"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+include = ["build.rs"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ckb-testtool = "0.10"
+
+[dev-dependencies]
+ckb-auth-rs = { path = "../../ckb-auth/ckb-auth-rs", features = ["ckb2023"] }
+rand = "0.6.5"
