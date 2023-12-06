@@ -21,6 +21,9 @@ install_tools:
 
 clean:
 	cd C && make clean
-	cd Rust && capsule clean
+	rm -rf Rust/build
+	rm -rf Rust/target
 	rm -rf Rust/build
 	rm -rf Rust/tests/target
+
+# 	cd Rust && capsule clean 		# capsule cannot be found under sudo
