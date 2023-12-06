@@ -16,6 +16,12 @@ jobs:
       run: sudo apt-get purge --auto-remove llvm python3-lldb-14 llvm-14 && wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && sudo ./llvm.sh 16
     - name: Install Tools
       run: make install_tools
-    - name: Testcase
-      run: make CI
+    - name: Test Rust example
+      run: make CI_Rust
+    - name: Test C example
+      run: make CI_C_GNU
+    - name: Clean
+      run: sudo make clean
+    - name: Test C example with LLVM
+      run: make CI_C_LLVM
 

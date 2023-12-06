@@ -2,7 +2,6 @@
 CI: \
 	CI_Rust \
 	CI_C_GNU \
-	clean \
 	CI_C_LLVM
 
 
