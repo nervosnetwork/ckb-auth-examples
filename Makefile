@@ -7,6 +7,7 @@ CI: \
 
 
 CI_Rust:
+	cd Rust && capsule build
 	cd Rust && capsule test
 
 CI_C_GNU:

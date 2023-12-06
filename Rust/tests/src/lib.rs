@@ -68,7 +68,7 @@ impl Loader {
     }
 
     pub fn load_demo(&self) -> Bytes {
-        self.load_binary("auth_rust_example")
+        self.load_binary("auth-rust-example")
     }
     pub fn load_auth(&self) -> Bytes {
         self.load_binary("../auth")

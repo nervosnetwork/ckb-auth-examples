@@ -44,7 +44,7 @@ test: all-via-docker
 	cp $(CKB_AUTH)/build/auth ../Rust/build
 	cp $(CKB_AUTH)/build/secp256k1_data_20210801 ../Rust/build
 	mkdir -p ../Rust/build/debug
-	cp build/auth_c_example ../Rust/build/debug/auth_rust_example
+	cp build/auth_c_example ../Rust/build/debug/auth-rust-example
 	cd ../Rust/tests && cargo test
 
 clean:
