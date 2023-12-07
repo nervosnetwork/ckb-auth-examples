@@ -20,8 +20,6 @@ jobs:
       run: make CI_Rust
     - name: Test C example
       run: make CI_C_GNU
-    - name: Clean
-      run: sudo make clean
     - name: Test C example with LLVM
       run: make CI_C_LLVM
 
