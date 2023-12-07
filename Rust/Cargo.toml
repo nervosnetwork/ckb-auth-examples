@@ -1,0 +1,10 @@
+[workspace]
+members = ["contracts/auth-rust-example"]
+exclude = ["tests"]
+
+[profile.release]
+overflow-checks = true
+strip = true
+opt-level = 's'
+lto = false
+codegen-units = 1

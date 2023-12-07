@@ -1,0 +1,43 @@
+CKB_AUTH=../deps/ckb-auth
+
+CC := clang-16
+LD := ld.lld-16
+OBJCOPY := llvm-objcopy-16
+AR := llvm-ar-16
+RANLIB := llvm-ranlib-16
+LLVM_CFLAGS := --target=riscv64 -march=rv64imc_zba_zbb_zbc_zbs \
+		-Wno-error=unused-but-set-variable \
+		-Wno-error=unused-command-line-argument \
+		-Wno-error=bitwise-instead-of-logical
+
+CFLAGS := $(LLVM_CFLAGS) $(GCC_CFLAGS) \
+		-O3 -g -Wall -Werror -Wno-nonnull -Wno-unused-function \
+		-fno-builtin-printf -fno-builtin-memcmp \
+		-nostdinc -nostdlib -fvisibility=hidden -fdata-sections -ffunction-sections \
+		-I $(CKB_AUTH)/deps/secp256k1/src -I $(CKB_AUTH)/deps/secp256k1 \
+		-I $(CKB_AUTH)/deps/ckb-c-std-lib -I $(CKB_AUTH)/deps/ckb-c-std-lib/libc \
+		-I $(CKB_AUTH)/deps/ckb-c-std-lib/molecule \
+		-I $(CKB_AUTH)/c \
+		-I $(CKB_AUTH)/build
+LDFLAGS := -Wl,-static -Wl,--gc-sections
+AUTH_CFLAGS=$(subst ckb-c-std-lib,ckb-c-stdlib-2023,$(CFLAGS)) -Wno-array-bounds
+
+all: ckb-auth-all build/auth_c_example
+
+ckb-auth-all:
+	cd $(CKB_AUTH) && make -f Makefile.clang all
+	mkdir -p build
+
+build/auth_c_example: auth_c_example.c $(CKB_AUTH)/c/ckb_auth.h
+	$(CC) $(AUTH_CFLAGS) $(LDFLAGS) -o $@ auth_c_example.c
+	$(OBJCOPY) --only-keep-debug $@ $@.debug
+	$(OBJCOPY) --strip-debug --strip-all $@
+
+test: all
+	rm -rf ../Rust/build/
+	mkdir -p ../Rust/build
+	cp $(CKB_AUTH)/build/auth ../Rust/build
+	cp $(CKB_AUTH)/build/secp256k1_data_20210801 ../Rust/build
+	mkdir -p ../Rust/build/debug
+	cp build/auth_c_example ../Rust/build/debug/auth-rust-example
+	cd ../Rust/tests && cargo test
