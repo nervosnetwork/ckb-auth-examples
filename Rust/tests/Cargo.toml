@@ -10,5 +10,7 @@ include = ["build.rs"]
 ckb-testtool = "0.10"
 
 [dev-dependencies]
-ckb-auth-rs = { path = "../../deps/ckb-auth/ckb-auth-rs", features = ["ckb2023"] }
+ckb-auth-rs = { path = "../../deps/ckb-auth/ckb-auth-rs", features = ["ckb2023", "enable-dynamic-library"] }
 rand = "0.6.5"
+p256 = { version = "^0.10.1" }
+sha2 = "0.10.6"

@@ -29,7 +29,7 @@ ckb-auth-all:
 	mkdir -p build
 
 build/auth_c_example: auth_c_example.c $(CKB_AUTH)/c/ckb_auth.h
-	$(CC) $(AUTH_CFLAGS) $(LDFLAGS) -o $@ auth_c_example.c
+	$(CC) $(AUTH_CFLAGS) $(LDFLAGS) -DCKB_AUTH_DL_BUFF_SIZE=0x96000 -o $@ auth_c_example.c
 	$(OBJCOPY) --only-keep-debug $@ $@.debug
 	$(OBJCOPY) --strip-debug --strip-all $@
 
