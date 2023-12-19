@@ -173,7 +173,7 @@ int main() {
     if (len > SCRIPT_SIZE) {
         return CKB_INVALID_DATA;
     }
-        mol_seg_t script_seg;
+    mol_seg_t script_seg;
     script_seg.ptr = (uint8_t *)script;
     script_seg.size = len;
 
@@ -181,19 +181,19 @@ int main() {
         return CKB_INVALID_DATA;
     }
 
-        mol_seg_t args_seg = MolReader_Script_get_args(&script_seg);
+    mol_seg_t args_seg = MolReader_Script_get_args(&script_seg);
     mol_seg_t args_bytes_seg = MolReader_Bytes_raw_bytes(&args_seg);
 
     if (args_bytes_seg.size < 1) {
         return CKB_INVALID_DATA;
     }
-        size_t auth_num = args_bytes_seg.ptr[0];
+    size_t auth_num = args_bytes_seg.ptr[0];
     // auth 21bytes + code_hash 32bytes + hash_type 1byte + entry_category 1byte
     if (auth_num == 0 ||
         args_bytes_seg.size != auth_num * CKB_AUTH_ARGS_SIZE + 1) {
         return CKB_INVALID_DATA;
     }
-    
+
     // Load the first witness, or the witness of the same index as the first
     // input using current script.
     uint64_t witness_len = MAX_WITNESS_SIZE;
@@ -201,17 +201,17 @@ int main() {
     if (ret != CKB_SUCCESS) {
         return CKB_INVALID_DATA;
     }
-    
+
     mol_seg_t lock_bytes_seg;
     ret = extract_witness_lock(temp, witness_len, &lock_bytes_seg);
     if (ret != 0) {
         return CKB_INVALID_DATA;
     }
-        uint8_t msg32[32];
+    uint8_t msg32[32];
     ret = generate_sighash_all(msg32, 32);
     if (ret != 0) return CKB_INVALID_DATA;
 
-        size_t witness_offset = 0;
+    size_t witness_offset = 0;
     for (size_t i = 0; i < auth_num; i++) {
         size_t args_offset = 1 + CKB_AUTH_ARGS_SIZE * i;
         uint8_t *args = args_bytes_seg.ptr + args_offset;
