@@ -233,19 +233,6 @@ int main() {
             return CKB_INVALID_DATA;
         }
         uint8_t *signature = lock_bytes_seg.ptr + witness_offset + 2;
-
-        switch (auth.algorithm_id) {
-            case AuthAlgorithmIdRipple:
-                if (lock_bytes_seg.ptr[lock_bytes_seg.size - 1] >=
-                    lock_bytes_seg.size) {
-                    return 102;  // ERROR_INVALID_ARG
-                }
-                lock_bytes_seg.size -=
-                    lock_bytes_seg.ptr[lock_bytes_seg.size - 1];
-                break;
-            default:
-                break;
-        }
         witness_offset += sign_size + 2;
 
         ret = ckb_auth(&entry, &auth, signature, sign_size, msg32);
