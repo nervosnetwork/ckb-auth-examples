@@ -32,16 +32,16 @@ ckb-auth-all:
 	mkdir -p build
 
 build/auth_c_example: auth_c_example.c $(CKB_AUTH)/c/ckb_auth.h
-	$(CC) $(AUTH_CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(AUTH_CFLAGS) $(LDFLAGS) -DCKB_AUTH_DL_BUFF_SIZE=0x96000 -o $@ $^
 	$(OBJCOPY) --only-keep-debug $@ $@.debug
 	$(OBJCOPY) --strip-debug --strip-all $@
-
 
 # C's example has the same interface as rust, so here we borrow rust's tests for testing.
 test: all-via-docker
 	rm -rf ../Rust/build/
 	mkdir -p ../Rust/build
 	cp $(CKB_AUTH)/build/auth ../Rust/build
+	cp $(CKB_AUTH)/build/auth_libecc ../Rust/build
 	cp $(CKB_AUTH)/build/secp256k1_data_20210801 ../Rust/build
 	mkdir -p ../Rust/build/debug
 	cp build/auth_c_example ../Rust/build/debug/auth-rust-example

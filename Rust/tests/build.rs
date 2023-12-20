@@ -24,6 +24,7 @@ fn main() {
 
     // copy to build
     std::fs::copy(ckb_auth_build_dir.join("auth"), "../build/auth").expect("copy ckb-auth");
+    std::fs::copy(ckb_auth_build_dir.join("auth_libecc"), "../build/auth_libecc").expect("copy ckb-auth");
     std::fs::copy(ckb_auth_build_dir.join("secp256k1_data_20210801"), "../build/secp256k1_data_20210801")
         .expect("copy secp256k1_data_20210801");
 }

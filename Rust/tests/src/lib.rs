@@ -73,6 +73,9 @@ impl Loader {
     pub fn load_auth(&self) -> Bytes {
         self.load_binary("../auth")
     }
+    pub fn load_libecc_auth(&self) -> Bytes {
+        self.load_binary("../auth_libecc")
+    }
     pub fn load_secp256k1_data(&self) -> Bytes {
         self.load_binary("../secp256k1_data_20210801")
     }
